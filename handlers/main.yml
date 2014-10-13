@@ -1,0 +1,4 @@
+ - name: restart gohub
+   service:
+     name: gohub
+     state: restarted

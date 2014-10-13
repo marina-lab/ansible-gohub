@@ -1,0 +1,34 @@
+# Deploy docker-consul-haproxy
+ - name: create /usr/local/gohub
+   file:
+     path: /usr/local/gohub
+     state: directory
+
+ - name: copy gohub config
+   copy:
+     src: "{{ gohub_json }}"
+     dest: /usr/local/gohub/config.json
+   notify: restart gohub
+
+ - name: install gohub
+   get_url:
+     url: "{{ gohub_bin }}"
+     dest: /usr/local/gohub/gohub
+     mode: 0700
+
+ - name: template gohub.service
+   template:
+     src: gohub.service
+     dest: /usr/lib/systemd/system/gohub.service
+   register: gohub_unit
+   notify: restart gohub
+
+ - name: systemctl daemon-reload
+   command: /bin/systemctl daemon-reload
+   when: gohub_unit.changed
+
+ - name: enable and start gohub.service
+   service:
+     name: gohub
+     enabled: yes
+     state: started

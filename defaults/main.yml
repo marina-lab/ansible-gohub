@@ -1,0 +1,7 @@
+---
+
+gohub_bin: http://dl.bintray.com/marina/gohub/gohub_0.1.0_linux_amd64
+gohub_port: 6578
+# gohub will default to $PATH for scripts if empty or not specified
+gohub_scripts_path:
+gohub_config_file: /usr/local/gohub/config.json

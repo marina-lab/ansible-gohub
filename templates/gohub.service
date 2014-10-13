@@ -1,0 +1,12 @@
+[Unit]
+Description=gohub
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/local/gohub/gohub \
+    --port {{ gohub_port }} \
+    --scripts {{ gohub_scripts_path }} \
+    --config {{ gohub_config_file }}
+
+[Install]
+WantedBy=multi-user.target
